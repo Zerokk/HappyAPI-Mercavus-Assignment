@@ -9,7 +9,7 @@ easily customizable.
 1. Clone the project
 `git clone https://github.com/Zerokk/Mercavus_Assignment_APIHAPI.git`
 
-2. Install packages
+2. Install packages with
 `yarn install`
 or
 `npm install`
