@@ -5,17 +5,18 @@ This is the repository for the Mercavus assignment. As requested, it's done with
 For the database, you can use a simple Docker MongoDB repository, or any Mongo database you can refer from the code, which is
 easily customizable.
 
-### How the frontend looks like:
+### 🌅 How the frontend looks like:
 
 ![Image of the frontend app](https://i.imgur.com/kA1yqVD.jpeg)
 
-### Folder structure:
+### 📁 Folder structure:
 
 ![Folder structure](https://i.imgur.com/GC64UE5.png)
 
 
-Here are some specifications of the project:
+### 🚀 Project special features:
 
+- Most of the project is well documented.
 - This backend project is made to ease the creation of REST APIs for the given Mongoose schemas. It makes super easy to create all the API with just writing a Typescript definition of what the objects of a collection should look like.
 - This project tries to follow the SOLID principles.
 - There are some tests for checking whether the app startup and RESTify process is going well.
@@ -28,6 +29,15 @@ Here are some specifications of the project:
      4. The class that RESTifies a given model, and all its parts (route handlers, default options, and request validators). The default one is generic and can handle everything, including pagination, although it may (and usually is) necessary to write some more business logic at some API endpoints. That can be easily done extending some of its methods while still using the ones that stay in the superclass.
      5. The DAO that actually does the CRUD operations. It has a default DAO that is useful for most cases, although it's programmed against an abstract class, which allows the final programmer to write its own access-level logic.
      
+     
+### 🛠️ Lacking features:
+Due to lack of time, these are features that the project currently lacks:
+- Applying Swagger UI to the APIs. 
+- Proper logging with Winston.
+- Better and deeper error handling.
+- A much better frontend (but as specified in the email, this is not a priority in this project).
+- Better encapsulation and an extra abstraction layer in the Handlers of the RESTifier.
+- Documenting some parts.
      
 You have more info in the email I sent you!
 
