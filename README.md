@@ -3,7 +3,7 @@
 
 This is the repository for the Mercavus assignment. As requested, it's made with Node, Hapi and Mongoose, and it heavily relies on the power of Typescript and the Object-Oriented Programming paradigm. It's not database-opinionated and requires zero configuration in that matter, so you can use a simple Docker MongoDB repository, or any working Mongo instance, and the app will work.
 
-Although is a project made in one day, it tries to assemble what a proper monolythic server should look like: easy and fast API creation and management, loosely coupled components, highly customizable, and a simple index file that allows the programmer a quick understanding of what's going on inside the code. One of the priorities of the outermost and most prone to modification segments of the app, is to follow the KISS principle: "Keep It Simple, Stupid!". The documentation will also guide you through the changes needed to adapt it to your needs.
+Although is a project made in one and a half day, it tries to assemble what a proper monolythic server should look like: easy and fast API creation and management, loosely coupled components, highly customizable, and a simple index file that allows the programmer a quick understanding of what's going on inside the code. One of the priorities of the outermost and most prone to modification segments of the app, is to follow the KISS principle: "Keep It Simple, Stupid!". The documentation will also guide you through the changes needed to adapt it to your needs.
 
 
 ### ⚙️ Installation
@@ -50,7 +50,7 @@ or
      
      
      
-### 🛠️ Future improvements:
+### 🛠️ Future improvements / Current shortcomings :
 Due to lack of time, these are features that the project currently lacks:
 - Applying Swagger UI to the APIs. 
 - Joi validators are not working. As I'm not used to this tool, I may be doing something wrong. I commented the part where these validators are applied, but you can see the abstractions I made around them to check how I was trying to achieve this.
@@ -58,7 +58,8 @@ Due to lack of time, these are features that the project currently lacks:
 - Better and deeper error handling.
 - A much better frontend (but as specified in the email, this is not a priority in this project).
 - Better encapsulation and an extra abstraction layer in the Handlers of the RESTifier.
-- Documenting some parts.
+- Allow integration of HTTPS (important).
+- Document some parts.
      
 You have more info in the email I sent you!
 
