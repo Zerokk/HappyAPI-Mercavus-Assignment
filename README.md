@@ -33,7 +33,7 @@ or
 ![Folder structure](https://i.imgur.com/GC64UE5.png)
 
 
-### 🚀 Project special features:
+### 🚀 Features:
 
 - This backend project is made to ease the creation of REST APIs for the given Mongoose schemas. API creation is super simplified: **just write a Typescript definition of what your entity should look like, and all the CRUD operations and REST API will be created**.
 - This project tries to follow the **SOLID** principles (although it would need a little bit more of attention to fully achieve this particular goal).
@@ -50,7 +50,7 @@ or
      
      
      
-### 🛠️ Lacking features:
+### 🛠️ Future improvements:
 Due to lack of time, these are features that the project currently lacks:
 - Applying Swagger UI to the APIs. 
 - Joi validators are not working. As I'm not used to this tool, I may be doing something wrong. I commented the part where these validators are applied, but you can see the abstractions I made around them to check how I was trying to achieve this.
