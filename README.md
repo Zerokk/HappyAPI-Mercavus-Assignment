@@ -34,23 +34,25 @@ or
 
 ### 🚀 Project special features:
 
+- This backend project is made to ease the creation of REST APIs for the given Mongoose schemas. API creation is super simplified: **just write a Typescript definition of what your entity should look like, and all the CRUD operations and REST API will be created**.
+- This project tries to follow the **SOLID** principles (although it would need a little bit more of attention to fully achieve this particular goal).
 - Most of the project is well documented.
-- This backend project is made to ease the creation of REST APIs for the given Mongoose schemas. It makes super easy to create all the API with just writing a Typescript definition of what the objects of a collection should look like.
-- This project tries to follow the SOLID principles.
-- There are some tests for checking whether the app startup and RESTify process is going well.
-- All the parts of the process are dynamic, extensible and interchangeable. This means that you can extend a class in order to achieve some custom functionality. The customizable parts of the whole app are the following:
+- There are some Mocha tests for checking whether the app startup and RESTify process are working correctly.
+- All the parts of the process are **dynamic, extensible and interchangeable**. This means that you can extend most of the Typescript classes in order to achieve some custom functionality. Some of the most notorious customizable parts are the following:
      1. The MongoDB connection.
      2. Mongo connection events.
      3. The class that handles all operations around routing, static files serving, and sets up controllers at endpoints.
      4. All object definitions that serve as parameters to functions and constructors, are properly declared as Typescript interfaces, which allows not only a good IDE linting, but also the ability to compose these objects in case it's needed. Same for enumerators.
      5. The information needed to setup the server correctly, should be provided by the "environments" file.
-     4. The class that RESTifies a given model, and all its parts (route handlers, default options, and request validators). The default one is generic and can handle everything, including pagination, although it may (and usually is) necessary to write some more business logic at some API endpoints. That can be easily done extending some of its methods while still using the ones that stay in the superclass.
-     5. The DAO that actually does the CRUD operations. It has a default DAO that is useful for most cases, although it's programmed against an abstract class, which allows the final programmer to write its own access-level logic.
+     4. The class that RESTifies a given model, and all its parts (route handlers, default options, and request validators). The default one is generic and can handle a basic REST API behavior, although it may (and usually is) necessary to write some more business logic at some API endpoints. That can be easily done extending some of its methods while still reusing all the code from the superclass that you want to keep.
+     5. The DAO that actually does the CRUD operations. It has a default DAO that is useful for most cases, although it's programmed against an abstract class, **which allows the final programmer to write its own custom access-level logic**.
+     
      
      
 ### 🛠️ Lacking features:
 Due to lack of time, these are features that the project currently lacks:
 - Applying Swagger UI to the APIs. 
+- Joi validators are not working. As I'm not used to this tool, I may be doing something wrong. I commented the part where these validators are applied, but you can see the abstractions I made around them to check how I was trying to achieve this.
 - Proper logging with Winston.
 - Better and deeper error handling.
 - A much better frontend (but as specified in the email, this is not a priority in this project).
