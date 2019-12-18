@@ -198,6 +198,8 @@ async function createHobby() {
 
 
 async function createUser(userName) {
-
+    const username = document.getElementById("username").value;
+    await performRequest('POST', 'user', { name: username });
+    await loadData();
 
 }
