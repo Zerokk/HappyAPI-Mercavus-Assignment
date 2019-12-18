@@ -1,1 +1,78 @@
-Teest!!!
+<html>
+
+<head>
+    <title>Test API application for Mercavus</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <!-- Bootstrap for some nice looking-->
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <!-- My own files -->
+    <script src="main.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
+</head>
+
+<body>
+    <div class="col-md-8 container">
+        <div class="col-md-3 float">
+            <table id="users-table">
+                <tr>
+                    <th class="title" colspan="2">User</th>
+                </tr>
+                <tr>
+                    <td><input class="form-control" placeholder="Enter username"></td>
+                    <td><button class="form-control">Add</button></td>
+                </tr>
+                <tr class="separator"></tr>
+
+            </table>
+        </div>
+        <div class="offset-1 col-md-8 float">
+            <table id="hobbies-table">
+                <tr >
+                    <th class="title">
+                        Passion level
+                    </th>
+                    <th class="title">
+                        Hobby name
+                    </th>
+                    <th class="title">
+                        Year
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <select id="passionSelect" class="form-control" placeholder="Select passion level">
+                            <option value="5">Very high</option>
+                            <option value="4">High</option>
+                            <option value="3">Normal</option>
+                            <option value="2">Low</option>
+                            <option value="1">Very low</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input id="hobbyName" class="form-control" placeholder="Enter hobby name">
+                    </td>
+                    <td>
+                        <input if="hobbyYear" class="form-control" placeholder="Enter year">
+                    </td>
+                    <td>
+                        <button class="form-control">Add</button>
+                    </td>
+                </tr>
+                <tr class="separator"></tr>
+
+
+            </table>
+        </div>
+
+
+    </div>
+</body>
+
+</html>

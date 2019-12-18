@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Index_Controller_1 = require("../controllers/Index_Controller");
 const PageNotFound_Controller_1 = require("../controllers/PageNotFound_Controller");
 /**
  * This class handles all the routes of the application, for a given Hapi server instance. It also
@@ -15,8 +14,13 @@ class RouteHandler {
         // Default route (index)
         this.hapiServerRef.route({
             method: 'GET',
-            path: '/',
-            handler: Index_Controller_1.Index_Controller
+            path: '/{param*}',
+            handler: {
+                directory: {
+                    path: '.',
+                    redirectToSlash: true
+                }
+            }
         });
         // 404 Error handling
         this.hapiServerRef.route({

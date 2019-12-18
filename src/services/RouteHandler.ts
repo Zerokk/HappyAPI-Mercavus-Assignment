@@ -1,6 +1,6 @@
 
-import { Index_Controller } from '../controllers/Index_Controller';
 import { PageNotFound_Controller } from '../controllers/PageNotFound_Controller';
+import * as Path from "path";
 
 /**
  * This class handles all the routes of the application, for a given Hapi server instance. It also
@@ -17,11 +17,16 @@ export class RouteHandler {
 
 
     private initializeControllers() {
-        // Default route (index)
+        // Default route (index) with static files
         this.hapiServerRef.route({
             method: 'GET',
-            path: '/',
-            handler: Index_Controller
+            path: '/{param*}',
+            handler: {
+                directory: {
+                    path: '.',
+                    redirectToSlash: true
+                }
+            }
         });
 
         // 404 Error handling
