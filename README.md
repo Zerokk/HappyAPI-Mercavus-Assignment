@@ -1,9 +1,10 @@
 # ⚡️ Backend Mercavus Assignment ⚡️
 ### Aka API_HAPI, a happy api made in Hapi!
 
-This is the repository for the Mercavus assignment. As requested, it's done with Node, Hapi and Mongoose.
-For the database, you can use a simple Docker MongoDB repository, or any Mongo database you can refer from the code, which is
-easily customizable.
+This is the repository for the Mercavus assignment. As requested, it's made with Node, Hapi and Mongoose, and it heavily relies on the power of Typescript and the Object-Oriented Programming paradigm. It's not database-opinionated and requires zero configuration in that matter, so you can use a simple Docker MongoDB repository, or any working Mongo instance, and the app will work.
+
+Although is a project made in one day, it tries to assemble what a proper monolythic server should look like: easy and fast API creation and management, loosely coupled components, highly customizable, and a simple index file that allows the programmer a quick understanding of what's going on inside the code. One of the priorities of the outermost and most prone to modification segments of the app, is to follow the KISS principle: "Keep It Simple, Stupid!". The documentation will also guide you through the changes needed to adapt it to your needs.
+
 
 ### ⚙️ Installation
 1. Clone the project
@@ -14,7 +15,7 @@ easily customizable.
 or
 `npm install`
 
-3. Modify the environment.ts so it points to a working MongoDB instance.
+3. Modify the environment.ts so it points to a working MongoDB instance. In order to use the frontend, you also have to change a couple of constants in the `public/main.js` file that connect the client app with the backend.
 
 4. Compile Typescript to JavaScript files:
 `tsc`
