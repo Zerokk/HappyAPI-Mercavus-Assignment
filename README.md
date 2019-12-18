@@ -5,6 +5,24 @@ This is the repository for the Mercavus assignment. As requested, it's done with
 For the database, you can use a simple Docker MongoDB repository, or any Mongo database you can refer from the code, which is
 easily customizable.
 
+### ⚙️ Installation
+1. Clone the project
+`git clone https://github.com/Zerokk/Mercavus_Assignment_APIHAPI.git`
+
+2. Install packages
+`yarn install`
+or
+`npm install`
+
+3. Modify the environment.ts so it points to a working MongoDB instance.
+
+4. Compile Typescript to JavaScript files:
+`tsc`
+
+5. Execute with Node:
+`node dist/index.js`
+
+
 ### 🌅 How the frontend looks like:
 
 ![Image of the frontend app](https://i.imgur.com/kA1yqVD.jpeg)
