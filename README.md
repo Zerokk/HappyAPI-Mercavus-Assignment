@@ -1,4 +1,4 @@
-# ⚡️ Mercavus_Assignment ⚡️
+# ⚡️ Backend Mercavus Assignment ⚡️
 ### Aka API_HAPI, a happy api made in Hapi!
 
 This is the repository for the Mercavus assignment. As requested, it's done with Node, Hapi and Mongoose.
