@@ -44,6 +44,7 @@ const initializeServer = () => __awaiter(void 0, void 0, void 0, function* () {
     restifier.RESTifyModel({ model: Hobby_1.HobbyModel, validators: Hobby_1.HobbyValidators });
     restifier.RESTifyModel({ model: User_1.UserModel, validators: User_1.UserValidators });
     // Start server
+    console.log("[5] - Starting server");
     yield server.start(env.PORT);
     console.log('[SUCCESS] - Server running at:', server.info.uri);
 });

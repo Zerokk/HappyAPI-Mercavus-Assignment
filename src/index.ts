@@ -46,6 +46,7 @@ const initializeServer = async () => {
 
 
     // Start server
+    console.log("[5] - Starting server");
     await server.start(env.PORT);
 
     console.log('[SUCCESS] - Server running at:', server.info.uri);

@@ -1,6 +1,6 @@
-import { HobbyValidators, HobbyModel } from '../entities/Hobby';
-import { RequestType } from '../enums/RequestType';
-import { DefaultDAO } from '../DAOs/DefaultDAO';
+
+import { Index_Controller } from '../controllers/Index_Controller';
+import { PageNotFound_Controller } from '../controllers/PageNotFound_Controller';
 
 /**
  * This class handles all the routes of the application, for a given Hapi server instance. It also
@@ -12,23 +12,23 @@ export class RouteHandler {
 
     constructor(hapiServer) {
         this.hapiServerRef = hapiServer;
-        this.initialize();
+        this.initializeControllers();
     }
 
 
-    private initialize() {
-        // Default route
+    private initializeControllers() {
+        // Default route (index)
         this.hapiServerRef.route({
             method: 'GET',
             path: '/',
-            handler: (req, h) => h.file('index.html')
+            handler: Index_Controller
         });
 
         // 404 Error handling
         this.hapiServerRef.route({
             method: '*',
             path: '/{any*}',
-            handler: (req, h) => 'ERROR 404: Page not found, <a href="/">return to homepage</a>'
+            handler: PageNotFound_Controller
         });
 
     }

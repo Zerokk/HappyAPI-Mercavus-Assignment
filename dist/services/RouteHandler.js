@@ -1,5 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const Index_Controller_1 = require("../controllers/Index_Controller");
+const PageNotFound_Controller_1 = require("../controllers/PageNotFound_Controller");
 /**
  * This class handles all the routes of the application, for a given Hapi server instance. It also
  * allows other parts of the app to add custom routes.
@@ -7,20 +9,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class RouteHandler {
     constructor(hapiServer) {
         this.hapiServerRef = hapiServer;
-        this.initialize();
+        this.initializeControllers();
     }
-    initialize() {
-        // Default route
+    initializeControllers() {
+        // Default route (index)
         this.hapiServerRef.route({
             method: 'GET',
             path: '/',
-            handler: (req, h) => h.file('index.html')
+            handler: Index_Controller_1.Index_Controller
         });
         // 404 Error handling
         this.hapiServerRef.route({
             method: '*',
             path: '/{any*}',
-            handler: (req, h) => 'ERROR 404: Page not found, <a href="/">return to homepage</a>'
+            handler: PageNotFound_Controller_1.PageNotFound_Controller
         });
     }
     addRouteObject(routeObject) {
