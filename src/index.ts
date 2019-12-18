@@ -6,6 +6,7 @@ import { MongoConnector } from './services/MongoConnector';
 import { RESTifier } from './services/RESTifier';
 import { HobbyModel, HobbyValidators } from './entities/Hobby';
 import { UserModel, UserValidators } from './entities/User';
+import { REST_Options } from './interfaces/REST_Options';
 
 
 // Functions are split so testing becomes easier
@@ -51,8 +52,9 @@ export const initializeServer = async () => {
         const restifier = new RESTifier(routeHandler);
     
         console.log("[4] - Creating REST API endpoints")
-        restifier.RESTifyModel({ model: HobbyModel, validators: HobbyValidators });
-        restifier.RESTifyModel({ model: UserModel, validators: UserValidators });
+        const options: REST_Options = {logThis: true};
+        restifier.RESTifyModel({ model: HobbyModel, validators: HobbyValidators, options: options });
+        restifier.RESTifyModel({ model: UserModel, validators: UserValidators, options: options  });
 
         // Start server
         console.log("[5] - Starting server");

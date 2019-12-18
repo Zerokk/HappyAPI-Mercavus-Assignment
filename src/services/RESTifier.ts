@@ -85,7 +85,7 @@ export class RESTifier {
 
 
     protected applyDefaults(apiSpec: REST_API_Specification) {
-        if (!apiSpec.options) apiSpec.options = { GET_pageSize: 50, logThis: false };
+        if (!apiSpec.options) apiSpec.options = { GET_pageSize: 0, logThis: false };
         if (!apiSpec.customDAO) apiSpec.customDAO = new DefaultDAO(apiSpec.model);
     }
 
@@ -94,11 +94,14 @@ export class RESTifier {
             case RequestType.GET:
                 return async (req, h) => {
                     try {
+                        if (options.logThis) {
+                            console.info(`[INFO] (${new Date().toUTCString()}) >> ${req.info.remoteAddress}   --->  GET on ${dao.model.modelName}`);
+                        }
                         const id = req.params.id;
                         const page = req.params.page ? Number(req.param.size) : 0;
 
                         const result = await dao.read(id);
-                        if (result instanceof Array) {
+                        if (result instanceof Array && options.GET_pageSize != 0) {
                             return result.slice(page * options.GET_pageSize, options.GET_pageSize);
                         } else {
                             return result;
@@ -112,10 +115,13 @@ export class RESTifier {
             case RequestType.POST:
                 return async (req, h) => {
                     try {
+                        if (options.logThis) {
+                            console.info(`[INFO] (${new Date().toUTCString()}) >> ${req.info.remoteAddress}   --->  POST on ${dao.model.modelName}`);
+                        }
                         const payload = req.payload;
                         if (payload) {
-                            await dao.create(payload);
-                            return true;
+                            const id = await dao.create(payload);
+                            return id;
                         } else {
                             throw "Something wrong happened";
                         }
@@ -128,6 +134,9 @@ export class RESTifier {
             case RequestType.PUT:
                 return async (req, h) => {
                     try {
+                        if (options.logThis) {
+                            console.info(`[INFO] (${new Date().toUTCString()}) >> ${req.info.remoteAddress}   --->  PUT on ${dao.model.modelName}`);
+                        }
                         const payload = req.payload;
                         if (payload) {
                             await dao.update(payload.id, payload);
@@ -144,6 +153,9 @@ export class RESTifier {
             case RequestType.DELETE:
                 return async (req, h) => {
                     try {
+                        if (options.logThis) {
+                            console.info(`[INFO] (${new Date().toUTCString()}) >> ${req.info.remoteAddress}   --->  DELETE on ${dao.model.modelName}`);
+                        }
                         const id = req.params.id;
                         if (id) {
                             await dao.delete(id);

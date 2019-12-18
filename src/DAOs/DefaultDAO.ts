@@ -3,7 +3,9 @@ import { AbstractDAO } from "./AbstractDAO";
 export class DefaultDAO extends AbstractDAO {
 
     async create(obj: any) {
-        this.model.create(obj);
+        const created = await this.model.create(obj);
+        created.save();
+        return created._id;
     }
 
     async read(_id?: string) {

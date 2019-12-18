@@ -54,8 +54,9 @@ exports.initializeServer = () => __awaiter(void 0, void 0, void 0, function* () 
         const routeHandler = new RouteHandler_1.RouteHandler(server);
         const restifier = new RESTifier_1.RESTifier(routeHandler);
         console.log("[4] - Creating REST API endpoints");
-        restifier.RESTifyModel({ model: Hobby_1.HobbyModel, validators: Hobby_1.HobbyValidators });
-        restifier.RESTifyModel({ model: User_1.UserModel, validators: User_1.UserValidators });
+        const options = { logThis: true };
+        restifier.RESTifyModel({ model: Hobby_1.HobbyModel, validators: Hobby_1.HobbyValidators, options: options });
+        restifier.RESTifyModel({ model: User_1.UserModel, validators: User_1.UserValidators, options: options });
         // Start server
         console.log("[5] - Starting server");
         yield server.start(env.PORT);

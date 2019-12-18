@@ -11,7 +11,7 @@ class RouteHandler {
         this.initializeControllers();
     }
     initializeControllers() {
-        // Default route (index)
+        // Default route (index) with static files
         this.hapiServerRef.route({
             method: 'GET',
             path: '/{param*}',

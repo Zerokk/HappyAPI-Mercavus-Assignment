@@ -5,26 +5,39 @@ const SERVER_PORT = 3000;
 const DEFAULT_BTN_CLASSES = "form-control user-btn";
 
 // Variables
-let currentSelection;
+let currentButtonSelected;
+let currentUser;
 let users;
 let hobbies;
-let previousRows = [];
+let previousHobbyRows = [];
+let previousUserRows = [];
 
 
 (async function initialLoad() {
+    loadData();
+})()
+
+async function loadData() {
+    // Clean previous data
+    users = null;
+    hobbies = null;
+    if (previousHobbyRows) previousHobbyRows.forEach(row => row.remove());
+    if (previousUserRows) previousUserRows.forEach(row => row.remove());
+
 
     // Fetch data
-    const hobbyPromise = fetch(`http://${SERVER_URL}:${SERVER_PORT}/hobby`);
-    const userPromise = fetch(`http://${SERVER_URL}:${SERVER_PORT}/user`);
+    const hobbyPromise = performRequest('GET', `hobby`, null);
+    const userPromise = performRequest('GET', `user`, null);
     const [hobbiesRes, usersRes] = await Promise.all([hobbyPromise, userPromise]);
 
     // Get JSON-formatted data
     hobbies = await hobbiesRes.json();
     users = await usersRes.json();
 
+    // Render for posible current selection (if it isn't the first load)
     renderUserTable(users);
-
-})()
+    if (currentUser) selectUser(currentUser._id);
+}
 
 
 function renderUserTable(userList) {
@@ -43,6 +56,7 @@ function renderUserTable(userList) {
         button.onclick = () => selectUser(user._id);
 
         // Append everything to the table
+        previousUserRows.push(td);
         td.appendChild(button);
         tr.appendChild(td);
         table.appendChild(tr)
@@ -51,15 +65,23 @@ function renderUserTable(userList) {
 
 function selectUser(userId) {
     // Clear last selection (if any)
-    if (currentSelection) currentSelection.classList = DEFAULT_BTN_CLASSES;
+    console.log("Data incoming to selectUser")
+    console.log("1. userId: ", userId)
+    console.log("2. currentUser: ", currentUser)
+    console.log("3. currentButtonSelected: ", currentButtonSelected)
 
-    // Assign new selection to the currentSelection var and add visual clue of selection
+    if (currentUser && currentUser._id != userId) currentButtonSelected.classList = DEFAULT_BTN_CLASSES;
+
+    // Assign new selection to the currentButtonSelected var and add visual clue of selection
     const button = document.getElementById(userId);
-    currentSelection = button;
+    currentButtonSelected = button;
+    console.log("4. button: ", button)
+
     button.classList += " selected-user-btn";
 
     // Get user hobbies, and filter the global hobbies object to show the ones that match
     const foundUser = users.find(user => user._id === userId);
+    currentUser = foundUser;
     const userHobbies = hobbies.filter(h =>
         foundUser.hobbies.some(userHobbieId =>
             userHobbieId === h._id
@@ -75,11 +97,9 @@ function selectUser(userId) {
 function renderHobbies(filteredHobbies) {
     const table = document.getElementById("hobbies-table");
     // Remove previous rows
-    previousRows.forEach(row => row.remove());
+    previousHobbyRows.forEach(row => row.remove());
 
     filteredHobbies.forEach(h => {
-
-
 
         // Create elements
         const tr = document.createElement("tr");
@@ -123,42 +143,32 @@ function renderHobbies(filteredHobbies) {
         tr.appendChild(yearTd);
         tr.appendChild(removeBtnTd);
 
-        previousRows.push(tr);
+        previousHobbyRows.push(tr);
         table.appendChild(tr);
     })
 
 }
 
-function performRequest(reqType, endpoint, data) {
-    return new Promise((resolve, reject) => {
+async function performRequest(reqType, endpoint, data) {
 
-        let payload;
-        if (reqType == 'DELETE' || reqType == 'GET') {
-            endpoint += data.id
-        } else {
-            // payload = Object.keys(data).map(key => key+"="+data[key]);
-            payload = JSON.stringify(data);
-            console.log("payload: ", payload)
+    const options = {
+        method: reqType,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         }
+    };
 
-        let request = new XMLHttpRequest();
-        request.open(reqType, `http://${SERVER_URL}:${SERVER_PORT}/${endpoint}`, true);
-        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        request.onreadystatechange = () => {
-            if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-                resolve(request.responseText);
-            } else {
-                reject();
-            }
-        };
+    if (reqType == 'DELETE' || reqType == 'GET') {
+        if (data && data.id) {
+            endpoint += "/" + data.id
+        }
+    } else {
+        Object.assign(options, { body: JSON.stringify(data) });
+    }
 
-        request.onerror = function () {
-            reject();
-        };
-
-        payload ? request.send(payload) : request.send();
-
-    });
+    console.log(`going to: http://${SERVER_URL}:${SERVER_PORT}/${endpoint}`)
+    return fetch(`http://${SERVER_URL}:${SERVER_PORT}/${endpoint}`, options);
 
 
 }
@@ -166,18 +176,24 @@ function performRequest(reqType, endpoint, data) {
 
 async function deleteHobby(hobbyId) {
     if (confirm("Are you sure to remove this hobby?")) {
-        const res = await performRequest('DELETE', 'hobby', {id: hobbyId})
-        console.log("result of delete: ", res);
+        const res = await performRequest('DELETE', 'hobby', { id: hobbyId });
+        await loadData();
     }
 }
 
 async function createHobby() {
-    const name = document.getElementById('hobbyName').value;
-    const passion = document.getElementById('passionSelect').value;
-    const year = document.getElementById('hobbyYear').value;
+    if (currentUser) {
+        const name = document.getElementById('hobbyName').value;
+        const passion = document.getElementById('passionSelect').value;
+        const year = document.getElementById('hobbyYear').value;
 
-    const res = await performRequest('INSERT', 'hobby', {name: name, passionLevel: passion, year: year});
-    console.log("result of delete: ", res);
+        const res = await performRequest('POST', 'hobby', { name: name, passionLevel: passion, year: year });
+        const id = await res.json();
+
+        currentUser.hobbies.push(id);
+        await performRequest('PUT', 'user', { id: currentUser._id, hobbies: currentUser.hobbies });
+        await loadData();
+    }
 }
 
 

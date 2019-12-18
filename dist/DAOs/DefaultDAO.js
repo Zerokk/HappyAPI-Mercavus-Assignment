@@ -13,7 +13,9 @@ const AbstractDAO_1 = require("./AbstractDAO");
 class DefaultDAO extends AbstractDAO_1.AbstractDAO {
     create(obj) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.model.create(obj);
+            const created = yield this.model.create(obj);
+            created.save();
+            return created._id;
         });
     }
     read(_id) {
