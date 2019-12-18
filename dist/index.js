@@ -42,15 +42,6 @@ function connectToMongo() {
     mongoHandler.connect();
 }
 exports.connectToMongo = connectToMongo;
-function createRouting(server) {
-    console.log("[3] - Loading default routes");
-    const routeHandler = new RouteHandler_1.RouteHandler(server);
-    const restifier = new RESTifier_1.RESTifier(routeHandler);
-    console.log("[4] - Creating REST API endpoints");
-    restifier.RESTifyModel({ model: Hobby_1.HobbyModel, validators: Hobby_1.HobbyValidators });
-    restifier.RESTifyModel({ model: User_1.UserModel, validators: User_1.UserValidators });
-}
-exports.createRouting = createRouting;
 // Wrapper async function for initializing server with ease
 exports.initializeServer = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -59,7 +50,12 @@ exports.initializeServer = () => __awaiter(void 0, void 0, void 0, function* () 
         // Connect to Mongo
         connectToMongo();
         // Assign routes and create REST API endpoints
-        createRouting(server);
+        console.log("[3] - Loading default routes");
+        const routeHandler = new RouteHandler_1.RouteHandler(server);
+        const restifier = new RESTifier_1.RESTifier(routeHandler);
+        console.log("[4] - Creating REST API endpoints");
+        restifier.RESTifyModel({ model: Hobby_1.HobbyModel, validators: Hobby_1.HobbyValidators });
+        restifier.RESTifyModel({ model: User_1.UserModel, validators: User_1.UserValidators });
         // Start server
         console.log("[5] - Starting server");
         yield server.start(env.PORT);
